@@ -7,7 +7,8 @@ import requests
 import os
 import uuid
 
-BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', '').rstrip('/')
+BASE_URL = os.environ.get('REACT_APP_BACKEND_URL') or "https://unzip-start-1.preview.emergentagent.com"
+BASE_URL = BASE_URL.rstrip('/')
 
 class TestHealthCheck:
     """Basic API health check"""

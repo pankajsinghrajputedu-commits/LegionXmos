@@ -410,8 +410,9 @@ const HiringsWidget = () => {
           {hirings.map((hiring) => (
             <div
               key={hiring.id}
+              data-testid={`hiring-item-${hiring.id}`}
               onClick={() => navigate('/hiring', { state: { sessionId: hiring.id } })}
-              className="p-3 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors cursor-pointer"
+              className="p-3 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors cursor-pointer border border-transparent hover:border-red-200"
             >
               <div className="flex items-center justify-between">
                 <h4 className="text-gray-900 text-sm font-medium truncate flex-1">{hiring.name}</h4>
