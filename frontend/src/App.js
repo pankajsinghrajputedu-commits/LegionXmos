@@ -1,7 +1,9 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { Toaster } from 'sonner';
+import { ThemeProvider, useTheme } from '@/context/ThemeContext';
 import Sidebar from '@/components/Sidebar';
+import DarkModeToggle from '@/components/DarkModeToggle';
 import AuthCallback from '@/components/AuthCallback';
 import Landing from '@/pages/Landing';
 import LoginPage from '@/pages/LoginPage';
@@ -18,6 +20,7 @@ import '@/App.css';
 
 const AppContent = () => {
   const location = useLocation();
+  const { isDark, isTransitioning } = useTheme();
   
   // Handle OAuth callback synchronously
   if (location.hash?.includes('session_id=')) {
@@ -29,9 +32,22 @@ const AppContent = () => {
   const isTestPage = location.pathname.startsWith('/test/');
   const isTestSubmittedPage = location.pathname.startsWith('/test-submitted');
   const showSidebar = !isLandingPage && !isLoginPage && !isTestPage && !isTestSubmittedPage;
+  const showDarkModeToggle = !isTestPage && !isTestSubmittedPage;
 
   return (
-    <div className="flex min-h-screen bg-white">
+    <div className={`flex min-h-screen transition-colors duration-500 ${isDark ? 'bg-slate-950' : 'bg-white'}`}>
+      {/* Page transition overlay */}
+      <div 
+        className={`fixed inset-0 z-[100] pointer-events-none transition-opacity duration-500 ${
+          isTransitioning ? 'opacity-100' : 'opacity-0'
+        }`}
+        style={{
+          background: isDark 
+            ? 'radial-gradient(circle at bottom right, rgba(30, 58, 95, 0.8) 0%, transparent 70%)' 
+            : 'radial-gradient(circle at bottom right, rgba(251, 191, 36, 0.5) 0%, transparent 70%)'
+        }}
+      />
+      
       {showSidebar && <Sidebar />}
       <div className="flex-1">
         <Routes>
@@ -49,16 +65,19 @@ const AppContent = () => {
           <Route path="/leaderboard" element={<Leaderboard />} />
         </Routes>
       </div>
-      <Toaster position="top-right" />
+      {showDarkModeToggle && <DarkModeToggle />}
+      <Toaster position="top-right" theme={isDark ? 'dark' : 'light'} />
     </div>
   );
 };
 
 function App() {
   return (
-    <BrowserRouter>
-      <AppContent />
-    </BrowserRouter>
+    <ThemeProvider>
+      <BrowserRouter>
+        <AppContent />
+      </BrowserRouter>
+    </ThemeProvider>
   );
 }
 

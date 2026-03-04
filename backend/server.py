@@ -1292,7 +1292,7 @@ async def send_candidate_invites(request: SendInviteRequest):
         link_doc['created_at'] = link_doc['created_at'].isoformat()
         await db.test_links.insert_one(link_doc)
         
-        test_url = f"https://hiring-session-hub.preview.emergentagent.com/test/{test_link.link_id}"
+        test_url = f"https://unzip-start-1.preview.emergentagent.com/test/{test_link.link_id}"
         
         # Send email if Resend is configured
         if RESEND_API_KEY:

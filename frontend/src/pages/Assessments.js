@@ -25,6 +25,7 @@ const Assessments = () => {
 
   // Candidate management state
   const [candidates, setCandidates] = useState([]);
+  const [submissions, setSubmissions] = useState([]);
   const [newCandidate, setNewCandidate] = useState({ name: '', email: '' });
   const [selectedCandidates, setSelectedCandidates] = useState([]);
   const [sendingInvites, setSendingInvites] = useState(false);
@@ -32,6 +33,7 @@ const Assessments = () => {
   useEffect(() => {
     if (assessmentId) {
       loadAssessment();
+      loadSubmissions();
     } else {
       loadAllAssessments();
     }
@@ -69,6 +71,15 @@ const Assessments = () => {
       setCandidates(response.data);
     } catch (error) {
       console.error('Error loading candidates:', error);
+    }
+  };
+
+  const loadSubmissions = async () => {
+    try {
+      const response = await axios.get(`${API}/leaderboard/${assessmentId}`);
+      setSubmissions(response.data);
+    } catch (error) {
+      console.error('Error loading submissions:', error);
     }
   };
 
@@ -334,7 +345,7 @@ const Assessments = () => {
             data-testid="tab-candidates"
           >
             <Users size={18} className="inline mr-2" />
-            Candidates ({candidates.length})
+            Submissions ({submissions.length})
           </button>
           <button
             onClick={() => setActiveTab('share')}

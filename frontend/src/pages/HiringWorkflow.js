@@ -300,8 +300,8 @@ const HiringWorkflow = () => {
           <img 
             src={LOGO_URL}
             alt="LegionX" 
-            className="h-12 w-auto cursor-pointer hover:scale-105 transition-transform"
-            onClick={() => window.location.reload()}
+            className="h-14 w-auto cursor-pointer hover:scale-105 transition-transform"
+            onClick={() => navigate('/home')}
           />
         </div>
 

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Home, Briefcase, Sparkles, TrendingUp, Trophy, User, LogOut, Settings } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useTheme } from '@/context/ThemeContext';
 import axios from 'axios';
 import { toast } from 'sonner';
 
@@ -14,6 +15,7 @@ const Sidebar = () => {
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
+  const { isDark } = useTheme();
 
   useEffect(() => {
     setIsOpen(false);
@@ -48,7 +50,7 @@ const Sidebar = () => {
   };
 
   const handleLogoClick = () => {
-    window.location.reload();
+    navigate('/home');
   };
 
   const menuItems = [
@@ -64,20 +66,28 @@ const Sidebar = () => {
       {/* Hamburger Menu Button - animates to X */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed top-4 left-4 z-[60] p-3 rounded-lg bg-white border border-gray-200 shadow-lg transition-all duration-300 hover:bg-gray-50"
+        className={cn(
+          "fixed top-4 left-4 z-[60] p-3 rounded-lg shadow-lg transition-all duration-300",
+          isDark 
+            ? "bg-slate-800 border border-slate-700 hover:bg-slate-700" 
+            : "bg-white border border-gray-200 hover:bg-gray-50"
+        )}
         data-testid="sidebar-toggle"
       >
         <div className="w-6 h-5 relative flex flex-col justify-between">
           <span className={cn(
-            "w-full h-0.5 bg-gray-700 rounded transition-all duration-300 origin-center",
+            "w-full h-0.5 rounded transition-all duration-300 origin-center",
+            isDark ? "bg-white" : "bg-gray-700",
             isOpen && "rotate-45 translate-y-[9px]"
           )} />
           <span className={cn(
-            "w-full h-0.5 bg-gray-700 rounded transition-all duration-300",
+            "w-full h-0.5 rounded transition-all duration-300",
+            isDark ? "bg-white" : "bg-gray-700",
             isOpen && "opacity-0 scale-0"
           )} />
           <span className={cn(
-            "w-full h-0.5 bg-gray-700 rounded transition-all duration-300 origin-center",
+            "w-full h-0.5 rounded transition-all duration-300 origin-center",
+            isDark ? "bg-white" : "bg-gray-700",
             isOpen && "-rotate-45 -translate-y-[9px]"
           )} />
         </div>
@@ -95,13 +105,19 @@ const Sidebar = () => {
       {/* Sidebar */}
       <div
         className={cn(
-          'fixed left-0 top-0 h-full w-80 bg-white z-50 transition-transform duration-300 shadow-2xl border-r border-gray-200',
+          'fixed left-0 top-0 h-full w-80 z-50 transition-all duration-300 shadow-2xl',
+          isDark 
+            ? 'bg-slate-900 border-r border-slate-800' 
+            : 'bg-white border-r border-gray-200',
           isOpen ? 'translate-x-0' : '-translate-x-full'
         )}
       >
         <div className="flex flex-col h-full">
           {/* Header with Large Logo - with padding for hamburger */}
-          <div className="p-6 pt-20 border-b border-gray-200 flex justify-center">
+          <div className={cn(
+            "p-6 pt-20 flex justify-center",
+            isDark ? "border-b border-slate-800" : "border-b border-gray-200"
+          )}>
             <img 
               src={LOGO_URL}
               alt="LegionX" 
@@ -128,7 +144,9 @@ const Sidebar = () => {
                     'w-full flex items-center gap-3 px-4 py-3.5 rounded-xl transition-all duration-200 font-medium',
                     isActive
                       ? 'bg-red-800 text-white shadow-lg shadow-red-800/30'
-                      : 'text-gray-700 hover:bg-gray-100'
+                      : isDark 
+                        ? 'text-slate-300 hover:bg-slate-800' 
+                        : 'text-gray-700 hover:bg-gray-100'
                   )}
                 >
                   <Icon size={22} />
@@ -139,12 +157,15 @@ const Sidebar = () => {
           </nav>
 
           {/* User Profile */}
-          <div className="p-4 border-t border-gray-200">
+          <div className={cn("p-4", isDark ? "border-t border-slate-800" : "border-t border-gray-200")}>
             {user && (
               <div className="relative">
                 <button
                   onClick={() => setShowProfileMenu(!showProfileMenu)}
-                  className="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-gray-100 transition-colors"
+                  className={cn(
+                    "w-full flex items-center gap-3 p-3 rounded-xl transition-colors",
+                    isDark ? "hover:bg-slate-800" : "hover:bg-gray-100"
+                  )}
                   data-testid="profile-menu-button"
                 >
                   {user.picture ? (
@@ -155,8 +176,8 @@ const Sidebar = () => {
                     </div>
                   )}
                   <div className="flex-1 text-left overflow-hidden">
-                    <div className="text-sm font-semibold text-gray-900 truncate">{user.name || 'User'}</div>
-                    <div className="text-xs text-gray-500 truncate">{user.email}</div>
+                    <div className={cn("text-sm font-semibold truncate", isDark ? "text-white" : "text-gray-900")}>{user.name || 'User'}</div>
+                    <div className={cn("text-xs truncate", isDark ? "text-slate-400" : "text-gray-500")}>{user.email}</div>
                   </div>
                 </button>
 
@@ -166,22 +187,31 @@ const Sidebar = () => {
                       className="fixed inset-0 z-40"
                       onClick={() => setShowProfileMenu(false)}
                     />
-                    <div className="absolute bottom-full left-0 right-0 mb-2 bg-white rounded-xl shadow-xl border border-gray-200 py-2 z-50">
+                    <div className={cn(
+                      "absolute bottom-full left-0 right-0 mb-2 rounded-xl shadow-xl py-2 z-50",
+                      isDark ? "bg-slate-800 border border-slate-700" : "bg-white border border-gray-200"
+                    )}>
                       <button
                         onClick={() => setShowProfileMenu(false)}
-                        className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50"
+                        className={cn(
+                          "w-full flex items-center gap-3 px-4 py-2.5 text-sm",
+                          isDark ? "text-slate-300 hover:bg-slate-700" : "text-gray-700 hover:bg-gray-50"
+                        )}
                       >
                         <User size={18} />
                         Your Profile
                       </button>
                       <button
                         onClick={() => setShowProfileMenu(false)}
-                        className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50"
+                        className={cn(
+                          "w-full flex items-center gap-3 px-4 py-2.5 text-sm",
+                          isDark ? "text-slate-300 hover:bg-slate-700" : "text-gray-700 hover:bg-gray-50"
+                        )}
                       >
                         <Settings size={18} />
                         Settings
                       </button>
-                      <div className="border-t border-gray-200 my-2" />
+                      <div className={cn("my-2", isDark ? "border-t border-slate-700" : "border-t border-gray-200")} />
                       <button
                         onClick={handleLogout}
                         className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-red-600 hover:bg-red-50"
@@ -196,7 +226,7 @@ const Sidebar = () => {
               </div>
             )}
             
-            <div className="text-xs text-gray-400 text-center mt-4">
+            <div className={cn("text-xs text-center mt-4", isDark ? "text-slate-500" : "text-gray-400")}>
               © 2026 LegionX
             </div>
           </div>

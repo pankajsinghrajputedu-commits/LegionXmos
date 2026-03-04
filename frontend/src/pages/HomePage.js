@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Plus, Cloud, Sun, CloudRain, Wind, Search, Globe, RefreshCw, ChevronLeft, ChevronRight, ExternalLink, MapPin, Droplets, X, Trash2 } from 'lucide-react';
 import axios from 'axios';
+import { useTheme } from '@/context/ThemeContext';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const LOGO_URL = "https://customer-assets.emergentagent.com/job_quick-unzip-5/artifacts/dfj90ofz_Red_Playful_Gifts_Logo__1_-removebg-preview.png";
@@ -286,7 +287,7 @@ const NewsCarousel = () => {
 };
 
 // Analog Clock Component
-const AnalogClock = ({ city, offset, onRemove }) => {
+const AnalogClock = ({ city, offset, onRemove, isDark }) => {
   const [time, setTime] = useState(new Date());
 
   useEffect(() => {
@@ -315,11 +316,11 @@ const AnalogClock = ({ city, offset, onRemove }) => {
           <X size={12} />
         </button>
       )}
-      <div className="relative w-20 h-20 rounded-full bg-white border-2 border-gray-200 shadow-lg">
+      <div className={`relative w-20 h-20 rounded-full border-2 shadow-lg ${isDark ? 'bg-slate-800 border-slate-700' : 'bg-white border-gray-200'}`}>
         {[...Array(12)].map((_, i) => (
           <div
             key={i}
-            className="absolute w-0.5 h-1.5 bg-gray-400 rounded"
+            className={`absolute w-0.5 h-1.5 rounded ${isDark ? 'bg-slate-500' : 'bg-gray-400'}`}
             style={{
               top: '6px',
               left: '50%',
@@ -329,11 +330,11 @@ const AnalogClock = ({ city, offset, onRemove }) => {
           />
         ))}
         <div
-          className="absolute w-1 h-5 bg-gray-800 rounded-full origin-bottom"
+          className={`absolute w-1 h-5 rounded-full origin-bottom ${isDark ? 'bg-white' : 'bg-gray-800'}`}
           style={{ bottom: '50%', left: '50%', transform: `translateX(-50%) rotate(${hourDeg}deg)` }}
         />
         <div
-          className="absolute w-0.5 h-7 bg-gray-600 rounded-full origin-bottom"
+          className={`absolute w-0.5 h-7 rounded-full origin-bottom ${isDark ? 'bg-slate-300' : 'bg-gray-600'}`}
           style={{ bottom: '50%', left: '50%', transform: `translateX(-50%) rotate(${minuteDeg}deg)` }}
         />
         <div
@@ -342,8 +343,8 @@ const AnalogClock = ({ city, offset, onRemove }) => {
         />
         <div className="absolute w-2 h-2 bg-red-600 rounded-full top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
       </div>
-      <p className="mt-2 text-xs font-semibold text-gray-900">{city}</p>
-      <p className="text-xs text-gray-500">{cityTime.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}</p>
+      <p className={`mt-2 text-xs font-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}>{city}</p>
+      <p className={`text-xs ${isDark ? 'text-slate-400' : 'text-gray-500'}`}>{cityTime.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}</p>
     </div>
   );
 };
@@ -351,6 +352,7 @@ const AnalogClock = ({ city, offset, onRemove }) => {
 // Hirings Widget
 const HiringsWidget = () => {
   const navigate = useNavigate();
+  const { isDark } = useTheme();
   const [hirings, setHirings] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -371,16 +373,16 @@ const HiringsWidget = () => {
 
   const getStatusColor = (status) => {
     switch (status) {
-      case 'active': return 'bg-green-100 text-green-700';
-      case 'completed': return 'bg-blue-100 text-blue-700';
-      default: return 'bg-gray-100 text-gray-600';
+      case 'active': return isDark ? 'bg-green-900/50 text-green-400' : 'bg-green-100 text-green-700';
+      case 'completed': return isDark ? 'bg-blue-900/50 text-blue-400' : 'bg-blue-100 text-blue-700';
+      default: return isDark ? 'bg-slate-700 text-slate-300' : 'bg-gray-100 text-gray-600';
     }
   };
 
   return (
-    <div className="bg-white rounded-2xl shadow-lg p-6">
+    <div className={`rounded-2xl shadow-lg p-6 transition-colors duration-500 ${isDark ? 'bg-slate-900 border border-slate-800' : 'bg-white'}`}>
       <div className="flex items-center justify-between mb-4">
-        <h3 className="font-semibold text-gray-900">Recent Hirings</h3>
+        <h3 className={`font-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}>Recent Hirings</h3>
         <button
           onClick={() => navigate('/hirings')}
           className="text-sm text-red-800 hover:text-red-600 font-medium"
@@ -392,12 +394,12 @@ const HiringsWidget = () => {
       {loading ? (
         <div className="space-y-3">
           {[1, 2, 3].map(i => (
-            <div key={i} className="h-14 bg-gray-100 rounded-xl animate-pulse" />
+            <div key={i} className={`h-14 rounded-xl animate-pulse ${isDark ? 'bg-slate-800' : 'bg-gray-100'}`} />
           ))}
         </div>
       ) : hirings.length === 0 ? (
         <div className="text-center py-6">
-          <p className="text-gray-500 text-sm mb-2">No hiring sessions yet</p>
+          <p className={`text-sm mb-2 ${isDark ? 'text-slate-400' : 'text-gray-500'}`}>No hiring sessions yet</p>
           <button
             onClick={() => navigate('/new-hiring')}
             className="text-red-800 hover:text-red-600 text-sm font-medium"
@@ -411,17 +413,21 @@ const HiringsWidget = () => {
             <div
               key={hiring.id}
               data-testid={`hiring-item-${hiring.id}`}
-              onClick={() => navigate('/hiring', { state: { sessionId: hiring.id } })}
-              className="p-3 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors cursor-pointer border border-transparent hover:border-red-200"
+              onClick={() => navigate(`/hiring?id=${hiring.id}`)}
+              className={`p-3 rounded-xl transition-colors cursor-pointer border ${
+                isDark 
+                  ? 'bg-slate-800/50 hover:bg-slate-800 border-transparent hover:border-red-800/50' 
+                  : 'bg-gray-50 hover:bg-gray-100 border-transparent hover:border-red-200'
+              }`}
             >
               <div className="flex items-center justify-between">
-                <h4 className="text-gray-900 text-sm font-medium truncate flex-1">{hiring.name}</h4>
+                <h4 className={`text-sm font-medium truncate flex-1 ${isDark ? 'text-white' : 'text-gray-900'}`}>{hiring.name}</h4>
                 <span className={`px-2 py-0.5 rounded text-xs font-medium ml-2 ${getStatusColor(hiring.status)}`}>
                   {hiring.status}
                 </span>
               </div>
               {hiring.description && (
-                <p className="text-gray-500 text-xs mt-1 truncate">{hiring.description}</p>
+                <p className={`text-xs mt-1 truncate ${isDark ? 'text-slate-400' : 'text-gray-500'}`}>{hiring.description}</p>
               )}
             </div>
           ))}
@@ -433,6 +439,7 @@ const HiringsWidget = () => {
 
 const HomePage = () => {
   const navigate = useNavigate();
+  const { isDark } = useTheme();
   const [stats, setStats] = useState({ total_jds: 0, total_assessments: 0, total_candidates: 0, total_scored: 0 });
   const [worldClocks, setWorldClocks] = useState(() => {
     const saved = localStorage.getItem('worldClocks');
@@ -492,7 +499,7 @@ const HomePage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 p-4 lg:p-8">
+    <div className={`min-h-screen transition-colors duration-500 p-4 lg:p-8 ${isDark ? 'bg-slate-950' : 'bg-gray-100'}`}>
       <div className="max-w-7xl mx-auto space-y-8">
         {/* Header */}
         <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
@@ -500,12 +507,12 @@ const HomePage = () => {
             <img 
               src={LOGO_URL}
               alt="LegionX" 
-              className="h-14 w-auto cursor-pointer hover:scale-105 transition-transform"
-              onClick={() => window.location.reload()}
+              className="h-16 w-auto cursor-pointer hover:scale-105 transition-transform"
+              onClick={() => navigate('/home')}
             />
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">Welcome Back!</h1>
-              <p className="text-gray-600">Your HR Command Center</p>
+              <h1 className={`text-3xl font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>Welcome Back!</h1>
+              <p className={isDark ? 'text-slate-400' : 'text-gray-600'}>Your HR Command Center</p>
             </div>
           </div>
           <button
@@ -518,7 +525,7 @@ const HomePage = () => {
           </button>
         </div>
 
-        {/* Quick Stats - Uniform white design */}
+        {/* Quick Stats - Uniform design */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           {[
             { label: 'Hirings', value: stats.total_jds },
@@ -526,9 +533,9 @@ const HomePage = () => {
             { label: 'Candidates', value: stats.total_candidates },
             { label: 'Scored', value: stats.total_scored }
           ].map((stat, idx) => (
-            <div key={idx} className="bg-white rounded-2xl p-5 shadow-lg">
-              <p className="text-4xl font-bold text-gray-900">{stat.value}</p>
-              <p className="text-sm text-gray-500 mt-1">{stat.label}</p>
+            <div key={idx} className={`rounded-2xl p-5 shadow-lg transition-colors duration-500 ${isDark ? 'bg-slate-900 border border-slate-800' : 'bg-white'}`}>
+              <p className={`text-4xl font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>{stat.value}</p>
+              <p className={`text-sm mt-1 ${isDark ? 'text-slate-400' : 'text-gray-500'}`}>{stat.label}</p>
             </div>
           ))}
         </div>
@@ -536,7 +543,7 @@ const HomePage = () => {
         <div className="grid lg:grid-cols-3 gap-6">
           {/* News Section - BIGGER */}
           <div className="lg:col-span-2">
-            <h2 className="text-xl font-bold text-gray-900 mb-4">Corporate & HR News</h2>
+            <h2 className={`text-xl font-bold mb-4 ${isDark ? 'text-white' : 'text-gray-900'}`}>Corporate & HR News</h2>
             <NewsCarousel />
           </div>
 
@@ -548,9 +555,9 @@ const HomePage = () => {
             <HiringsWidget />
             
             {/* World Clocks with Add/Remove */}
-            <div className="bg-white rounded-2xl shadow-lg p-6">
+            <div className={`rounded-2xl shadow-lg p-6 transition-colors duration-500 ${isDark ? 'bg-slate-900 border border-slate-800' : 'bg-white'}`}>
               <div className="flex items-center justify-between mb-4">
-                <h3 className="font-semibold text-gray-900 flex items-center gap-2">
+                <h3 className={`font-semibold flex items-center gap-2 ${isDark ? 'text-white' : 'text-gray-900'}`}>
                   <Globe size={20} className="text-red-800" />
                   World Clocks
                 </h3>
@@ -563,12 +570,12 @@ const HomePage = () => {
               </div>
               
               {showAddClock && (
-                <div className="mb-4 max-h-40 overflow-y-auto bg-gray-50 rounded-xl p-2">
+                <div className={`mb-4 max-h-40 overflow-y-auto rounded-xl p-2 ${isDark ? 'bg-slate-800' : 'bg-gray-50'}`}>
                   {availableCities.filter(ac => !worldClocks.find(c => c.city === ac.city)).map((cityData) => (
                     <button
                       key={cityData.city}
                       onClick={() => addClock(cityData)}
-                      className="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-lg"
+                      className={`w-full text-left px-3 py-2 text-sm rounded-lg ${isDark ? 'text-slate-300 hover:bg-slate-700' : 'text-gray-700 hover:bg-gray-100'}`}
                     >
                       {cityData.city}
                     </button>
@@ -583,6 +590,7 @@ const HomePage = () => {
                     city={clock.city} 
                     offset={clock.offset}
                     onRemove={worldClocks.length > 1 ? removeClock : null}
+                    isDark={isDark}
                   />
                 ))}
               </div>
