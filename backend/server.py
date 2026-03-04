@@ -908,18 +908,78 @@ async def submit_test(request: SubmitTestRequest):
             max_score = len(question_scores) * 10
             percentage = (total_score / max_score * 100) if max_score > 0 else 0
             
-            score_record = Score(
-                submission_id=submission.id,
-                assessment_id=submission.assessment_id,
-                candidate_name=submission.candidate_name,
-                candidate_email=submission.candidate_email,
-                total_score=total_score,
-                percentage=percentage,
-                question_scores=[QuestionScore(**qs) for qs in question_scores],
-                strengths=["Completed assessment", "Submitted on time"],
-                weaknesses=["Review recommended"],
-                recommendations="AI detailed evaluation pending"
-            )
+            # Get detailed AI evaluation
+            try:
+                import json
+                chat = LlmChat(
+                    api_key=EMERGENT_LLM_KEY,
+                    session_id=str(uuid.uuid4()),
+                    system_message="You are an expert evaluator. Score candidate responses consistently and provide detailed reasoning."
+                ).with_model("openai", "gpt-5.2")
+                
+                evaluation_data = []
+                for q in assessment['questions']:
+                    answer = answers_dict.get(q['question_id'], "No answer provided")
+                    evaluation_data.append({
+                        "question": q['text'],
+                        "type": q['type'],
+                        "expected": q.get('expected_answer', 'N/A'),
+                        "candidate_answer": answer
+                    })
+                
+                prompt = f"""Evaluate this candidate's responses:
+
+{json.dumps(evaluation_data, indent=2)}
+
+Score each question from 0-10 and provide:
+- Individual question scores with reasoning
+- Overall strengths (3-5 points)  
+- Areas for improvement (2-3 points)
+- Hiring recommendation
+
+Return ONLY valid JSON:
+{{
+  "question_scores": [{{"question_id": "id", "score": 8.5, "reasoning": "explanation"}}],
+  "strengths": ["strength1", "strength2"],
+  "weaknesses": ["weakness1", "weakness2"],
+  "recommendations": "Overall assessment and hiring recommendation"
+}}"""
+                
+                response = await chat.send_message(UserMessage(text=prompt))
+                eval_result = json.loads(response.strip().replace('```json', '').replace('```', '').strip())
+                
+                ai_question_scores = [QuestionScore(**qs) for qs in eval_result['question_scores']]
+                ai_total_score = sum(qs.score for qs in ai_question_scores)
+                ai_max_score = len(ai_question_scores) * 10
+                ai_percentage = (ai_total_score / ai_max_score * 100) if ai_max_score > 0 else 0
+                
+                score_record = Score(
+                    submission_id=submission.id,
+                    assessment_id=submission.assessment_id,
+                    candidate_name=submission.candidate_name,
+                    candidate_email=submission.candidate_email,
+                    total_score=ai_total_score,
+                    percentage=ai_percentage,
+                    question_scores=ai_question_scores,
+                    strengths=eval_result['strengths'],
+                    weaknesses=eval_result['weaknesses'],
+                    recommendations=eval_result['recommendations']
+                )
+                logging.info(f"AI evaluation completed for submission {submission.id}")
+            except Exception as ai_error:
+                logging.error(f"AI evaluation failed, using basic scoring: {ai_error}")
+                score_record = Score(
+                    submission_id=submission.id,
+                    assessment_id=submission.assessment_id,
+                    candidate_name=submission.candidate_name,
+                    candidate_email=submission.candidate_email,
+                    total_score=total_score,
+                    percentage=percentage,
+                    question_scores=[QuestionScore(**qs) for qs in question_scores],
+                    strengths=["Completed assessment", "Submitted on time"],
+                    weaknesses=["Review recommended"],
+                    recommendations="AI detailed evaluation pending"
+                )
             
             score_doc = score_record.model_dump()
             score_doc['scored_at'] = score_doc['scored_at'].isoformat()

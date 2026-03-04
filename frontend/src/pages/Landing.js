@@ -66,8 +66,8 @@ const Landing = () => {
             </div>
             
             {/* Fixed "Transform Your" with scrolling white words */}
-            <h2 className="text-5xl sm:text-6xl md:text-7xl font-bold leading-tight min-h-[180px] sm:min-h-[200px]">
-              <span className="text-red-600 block mb-4">Transform Your</span>
+            <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight min-h-[140px] sm:min-h-[180px] md:min-h-[200px]">
+              <span className="text-red-600 block mb-2 sm:mb-4">Transform Your</span>
               <div className="h-[1.2em] overflow-hidden relative">
                 <div className="animate-scroll-words">
                   <span className="block text-white py-1">Hiring Process</span>

@@ -121,7 +121,7 @@ const Sidebar = () => {
             <img 
               src={LOGO_URL}
               alt="LegionX" 
-              className="h-20 w-auto cursor-pointer hover:scale-105 transition-transform"
+              className="h-24 w-auto cursor-pointer hover:scale-105 transition-transform"
               onClick={handleLogoClick}
               data-testid="sidebar-logo"
             />

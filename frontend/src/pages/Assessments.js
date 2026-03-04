@@ -229,7 +229,7 @@ const Assessments = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className={`min-h-screen flex items-center justify-center transition-colors duration-500 ${isDark ? 'bg-slate-950' : 'bg-gray-50'}`}>
         <Loader2 className="animate-spin text-red-800" size={48} />
       </div>
     );
@@ -238,26 +238,26 @@ const Assessments = () => {
   // Show all assessments list when no specific ID
   if (!assessmentId) {
     return (
-      <div className="min-h-screen bg-gray-50 p-4 lg:p-8">
+      <div className={`min-h-screen transition-colors duration-500 p-4 lg:p-8 ${isDark ? 'bg-slate-950' : 'bg-gray-50'}`}>
         <div className="max-w-6xl mx-auto space-y-6">
           <button
             onClick={() => navigate('/dashboard')}
-            className="flex items-center gap-2 text-gray-600 hover:text-gray-900"
+            className={`flex items-center gap-2 ${isDark ? 'text-slate-400 hover:text-white' : 'text-gray-600 hover:text-gray-900'}`}
           >
             <ArrowLeft size={20} />
             Back to Dashboard
           </button>
 
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">All Assessments</h1>
-            <p className="text-gray-600">{allAssessments.length} assessments created</p>
+            <h1 className={`text-3xl font-bold mb-2 ${isDark ? 'text-white' : 'text-gray-900'}`}>All Assessments</h1>
+            <p className={isDark ? 'text-slate-400' : 'text-gray-600'}>{allAssessments.length} assessments created</p>
           </div>
 
           {allAssessments.length === 0 ? (
-            <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-12 text-center">
-              <Sparkles size={48} className="text-gray-400 mx-auto mb-4" />
-              <h2 className="text-xl font-semibold text-gray-900 mb-2">No Assessments Yet</h2>
-              <p className="text-gray-600 mb-6">Create your first assessment by uploading a job description</p>
+            <div className={`rounded-xl shadow-sm border p-12 text-center transition-colors duration-500 ${isDark ? 'bg-slate-900 border-slate-800' : 'bg-white border-gray-200'}`}>
+              <Sparkles size={48} className={isDark ? 'text-slate-500' : 'text-gray-400'} />
+              <h2 className={`text-xl font-semibold mb-2 ${isDark ? 'text-white' : 'text-gray-900'}`}>No Assessments Yet</h2>
+              <p className={`mb-6 ${isDark ? 'text-slate-400' : 'text-gray-600'}`}>Create your first assessment by uploading a job description</p>
               <button
                 onClick={() => navigate('/jd-input')}
                 className="px-6 py-3 rounded-lg bg-red-800 text-white font-semibold hover:bg-red-700 btn-animate"
@@ -271,14 +271,16 @@ const Assessments = () => {
                 <div
                   key={a.id}
                   onClick={() => navigate(`/assessments?id=${a.id}`)}
-                  className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-md hover:border-red-200 transition-all cursor-pointer"
+                  className={`rounded-xl shadow-sm border p-6 transition-all cursor-pointer ${
+                    isDark ? 'bg-slate-900 border-slate-800 hover:shadow-md hover:border-red-800/50' : 'bg-white border-gray-200 hover:shadow-md hover:border-red-200'
+                  }`}
                 >
                   <div className="flex items-center justify-between">
                     <div>
-                      <h3 className="text-lg font-semibold text-gray-900">{a.job_title || 'Untitled Assessment'}</h3>
-                      <p className="text-sm text-gray-600">{a.questions?.length || 0} questions</p>
+                      <h3 className={`text-lg font-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}>{a.job_title || 'Untitled Assessment'}</h3>
+                      <p className={`text-sm ${isDark ? 'text-slate-400' : 'text-gray-600'}`}>{a.questions?.length || 0} questions</p>
                     </div>
-                    <div className="text-sm text-gray-500">
+                    <div className={`text-sm ${isDark ? 'text-slate-500' : 'text-gray-500'}`}>
                       {a.generated_at ? new Date(a.generated_at).toLocaleDateString() : ''}
                     </div>
                   </div>
@@ -293,9 +295,9 @@ const Assessments = () => {
 
   if (!assessment) {
     return (
-      <div className="min-h-screen bg-gray-50 p-4 lg:p-8">
+      <div className={`min-h-screen p-4 lg:p-8 transition-colors duration-500 ${isDark ? 'bg-slate-950' : 'bg-gray-50'}`}>
         <div className="max-w-5xl mx-auto text-center space-y-4">
-          <h1 className="text-3xl font-bold text-gray-900">Assessment Not Found</h1>
+          <h1 className={`text-3xl font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>Assessment Not Found</h1>
           <button
             onClick={() => navigate('/assessments')}
             className="px-6 py-3 rounded-lg bg-red-800 text-white font-semibold hover:bg-red-700 btn-animate"
@@ -308,29 +310,29 @@ const Assessments = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 p-4 lg:p-8">
+    <div className={`min-h-screen p-4 lg:p-8 transition-colors duration-500 ${isDark ? 'bg-slate-950' : 'bg-gray-50'}`}>
       <div className="max-w-6xl mx-auto space-y-6">
         <button
           onClick={() => navigate('/dashboard')}
-          className="flex items-center gap-2 text-gray-600 hover:text-gray-900"
+          className={`flex items-center gap-2 ${isDark ? 'text-slate-400 hover:text-white' : 'text-gray-600 hover:text-gray-900'}`}
         >
           <ArrowLeft size={20} />
           Back to Dashboard
         </button>
 
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Assessment: {assessment.job_title}</h1>
-          <p className="text-gray-600">{assessment.questions.length} questions generated</p>
+          <h1 className={`text-3xl font-bold mb-2 ${isDark ? 'text-white' : 'text-gray-900'}`}>Assessment: {assessment.job_title}</h1>
+          <p className={isDark ? 'text-slate-400' : 'text-gray-600'}>{assessment.questions.length} questions generated</p>
         </div>
 
         {/* Tabs */}
-        <div className="flex gap-2 border-b border-gray-200">
+        <div className={`flex gap-2 border-b ${isDark ? 'border-slate-800' : 'border-gray-200'}`}>
           <button
             onClick={() => setActiveTab('questions')}
             className={`px-6 py-3 font-semibold border-b-2 transition-colors ${
               activeTab === 'questions'
                 ? 'border-red-800 text-red-800'
-                : 'border-transparent text-gray-600 hover:text-gray-900'
+                : isDark ? 'border-transparent text-slate-400 hover:text-white' : 'border-transparent text-gray-600 hover:text-gray-900'
             }`}
             data-testid="tab-questions"
           >
@@ -342,19 +344,19 @@ const Assessments = () => {
             className={`px-6 py-3 font-semibold border-b-2 transition-colors ${
               activeTab === 'candidates'
                 ? 'border-red-800 text-red-800'
-                : 'border-transparent text-gray-600 hover:text-gray-900'
+                : isDark ? 'border-transparent text-slate-400 hover:text-white' : 'border-transparent text-gray-600 hover:text-gray-900'
             }`}
             data-testid="tab-candidates"
           >
             <Users size={18} className="inline mr-2" />
-            Submissions ({submissions.length})
+            Taken Test ({submissions.length})
           </button>
           <button
             onClick={() => setActiveTab('share')}
             className={`px-6 py-3 font-semibold border-b-2 transition-colors ${
               activeTab === 'share'
                 ? 'border-red-800 text-red-800'
-                : 'border-transparent text-gray-600 hover:text-gray-900'
+                : isDark ? 'border-transparent text-slate-400 hover:text-white' : 'border-transparent text-gray-600 hover:text-gray-900'
             }`}
             data-testid="tab-share"
           >
@@ -365,21 +367,21 @@ const Assessments = () => {
 
         {/* Questions Tab */}
         {activeTab === 'questions' && (
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 space-y-6">
+          <div className={`rounded-xl shadow-sm border p-6 space-y-6 transition-colors duration-500 ${isDark ? 'bg-slate-900 border-slate-800' : 'bg-white border-gray-200'}`}>
             <div className="flex items-center justify-between">
-              <h2 className="text-xl font-bold text-gray-900">Review & Edit Questions</h2>
-              <span className="text-sm text-gray-500">Click edit to modify any question</span>
+              <h2 className={`text-xl font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>Review & Edit Questions</h2>
+              <span className={`text-sm ${isDark ? 'text-slate-500' : 'text-gray-500'}`}>Click edit to modify any question</span>
             </div>
 
             <div className="space-y-4 max-h-[600px] overflow-y-auto pr-2">
               {assessment.questions.map((q, idx) => (
-                <div key={q.question_id} className="p-4 rounded-lg bg-gray-50 border border-gray-200 space-y-3">
+                <div key={q.question_id} className={`p-4 rounded-lg border space-y-3 ${isDark ? 'bg-slate-800 border-slate-700' : 'bg-gray-50 border-gray-200'}`}>
                   <div className="flex items-start justify-between">
                     <div className="flex items-center gap-3">
                       <div className="w-8 h-8 rounded-full bg-red-800 text-white flex items-center justify-center text-sm font-semibold">
                         {idx + 1}
                       </div>
-                      <span className="px-2 py-1 rounded text-xs font-semibold bg-gray-200 text-gray-700">
+                      <span className={`px-2 py-1 rounded text-xs font-semibold ${isDark ? 'bg-slate-700 text-slate-300' : 'bg-gray-200 text-gray-700'}`}>
                         {q.type.replace('_', ' ').toUpperCase()}
                       </span>
                     </div>
@@ -396,7 +398,7 @@ const Assessments = () => {
                           </button>
                           <button
                             onClick={cancelEditing}
-                            className="p-2 rounded-lg bg-gray-100 text-gray-700 hover:bg-gray-200"
+                            className={`p-2 rounded-lg ${isDark ? 'bg-slate-700 text-slate-300 hover:bg-slate-600' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`}
                           >
                             <X size={16} />
                           </button>
@@ -427,12 +429,14 @@ const Assessments = () => {
                       <textarea
                         value={editedText}
                         onChange={(e) => setEditedText(e.target.value)}
-                        className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none text-gray-900 resize-none"
+                        className={`w-full p-3 border rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none resize-none ${
+                          isDark ? 'bg-slate-700 border-slate-600 text-white' : 'border-gray-300 text-gray-900'
+                        }`}
                         rows={3}
                       />
                       {q.options && (
                         <div className="space-y-2">
-                          <label className="text-sm font-semibold text-gray-700">Options:</label>
+                          <label className={`text-sm font-semibold ${isDark ? 'text-slate-300' : 'text-gray-700'}`}>Options:</label>
                           {editedOptions.map((opt, optIdx) => (
                             <input
                               key={optIdx}
@@ -443,7 +447,9 @@ const Assessments = () => {
                                 newOptions[optIdx] = e.target.value;
                                 setEditedOptions(newOptions);
                               }}
-                              className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none text-gray-900"
+                              className={`w-full p-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none ${
+                                isDark ? 'bg-slate-700 border-slate-600 text-white' : 'border-gray-300 text-gray-900'
+                              }`}
                             />
                           ))}
                         </div>
@@ -451,11 +457,11 @@ const Assessments = () => {
                     </div>
                   ) : (
                     <>
-                      <p className="text-gray-900 font-medium">{q.text}</p>
+                      <p className={`font-medium ${isDark ? 'text-white' : 'text-gray-900'}`}>{q.text}</p>
                       {q.options && (
                         <div className="space-y-2 pl-11">
                           {q.options.map((option, optIdx) => (
-                            <div key={optIdx} className="px-3 py-2 rounded bg-white border border-gray-200 text-sm text-gray-700">
+                            <div key={optIdx} className={`px-3 py-2 rounded border text-sm ${isDark ? 'bg-slate-700 border-slate-600 text-slate-300' : 'bg-white border-gray-200 text-gray-700'}`}>
                               {option}
                             </div>
                           ))}
@@ -472,16 +478,51 @@ const Assessments = () => {
         {/* Candidates Tab */}
         {activeTab === 'candidates' && (
           <div className="space-y-6">
+            {/* Submissions List - People who took the test */}
+            <div className={`rounded-xl shadow-sm border p-6 transition-colors duration-500 ${isDark ? 'bg-slate-900 border-slate-800' : 'bg-white border-gray-200'}`}>
+              <h3 className={`text-lg font-bold mb-4 ${isDark ? 'text-white' : 'text-gray-900'}`}>Candidates Who Took Test ({submissions.length})</h3>
+              
+              {submissions.length === 0 ? (
+                <div className="text-center py-8">
+                  <Users size={48} className={isDark ? 'text-slate-600' : 'text-gray-400'} />
+                  <p className={`mt-4 ${isDark ? 'text-slate-400' : 'text-gray-600'}`}>No one has taken this assessment yet</p>
+                  <p className={`text-sm mt-1 ${isDark ? 'text-slate-500' : 'text-gray-500'}`}>Share the test link to invite candidates</p>
+                </div>
+              ) : (
+                <div className="space-y-3">
+                  {submissions.map((sub) => (
+                    <div key={sub.submission_id || sub.id} className={`p-4 rounded-lg border flex items-center justify-between ${isDark ? 'bg-slate-800 border-slate-700' : 'bg-gray-50 border-gray-200'}`}>
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center">
+                          <span className="text-red-800 font-bold">{sub.candidate_name?.charAt(0) || '?'}</span>
+                        </div>
+                        <div>
+                          <p className={`font-medium ${isDark ? 'text-white' : 'text-gray-900'}`}>{sub.candidate_name}</p>
+                          <p className={`text-sm ${isDark ? 'text-slate-400' : 'text-gray-600'}`}>{sub.candidate_email}</p>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-red-800 font-bold text-lg">{sub.percentage?.toFixed(1) || 0}%</p>
+                        <p className={`text-xs ${isDark ? 'text-slate-500' : 'text-gray-500'}`}>Score</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
             {/* Add Candidate Form */}
-            <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-              <h3 className="text-lg font-bold text-gray-900 mb-4">Add Candidate</h3>
+            <div className={`rounded-xl shadow-sm border p-6 transition-colors duration-500 ${isDark ? 'bg-slate-900 border-slate-800' : 'bg-white border-gray-200'}`}>
+              <h3 className={`text-lg font-bold mb-4 ${isDark ? 'text-white' : 'text-gray-900'}`}>Add Candidate Manually</h3>
               <div className="flex flex-col sm:flex-row gap-4">
                 <input
                   type="text"
                   placeholder="Candidate Name"
                   value={newCandidate.name}
                   onChange={(e) => setNewCandidate({ ...newCandidate, name: e.target.value })}
-                  className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none text-gray-900"
+                  className={`flex-1 px-4 py-3 border rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none ${
+                    isDark ? 'bg-slate-800 border-slate-700 text-white placeholder:text-slate-500' : 'border-gray-300 text-gray-900'
+                  }`}
                   data-testid="candidate-name-input"
                 />
                 <input
@@ -489,7 +530,9 @@ const Assessments = () => {
                   placeholder="Email Address"
                   value={newCandidate.email}
                   onChange={(e) => setNewCandidate({ ...newCandidate, email: e.target.value })}
-                  className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none text-gray-900"
+                  className={`flex-1 px-4 py-3 border rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none ${
+                    isDark ? 'bg-slate-800 border-slate-700 text-white placeholder:text-slate-500' : 'border-gray-300 text-gray-900'
+                  }`}
                   data-testid="candidate-email-input"
                 />
                 <button
@@ -503,13 +546,13 @@ const Assessments = () => {
               </div>
             </div>
 
-            {/* Candidates List */}
-            <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+            {/* Invited Candidates List */}
+            <div className={`rounded-xl shadow-sm border p-6 transition-colors duration-500 ${isDark ? 'bg-slate-900 border-slate-800' : 'bg-white border-gray-200'}`}>
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-bold text-gray-900">Candidates ({candidates.length})</h3>
+                <h3 className={`text-lg font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>Invited Candidates ({candidates.length})</h3>
                 {candidates.length > 0 && (
                   <div className="flex items-center gap-4">
-                    <label className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer">
+                    <label className={`flex items-center gap-2 text-sm cursor-pointer ${isDark ? 'text-slate-400' : 'text-gray-600'}`}>
                       <input
                         type="checkbox"
                         checked={selectedCandidates.length === candidates.length && candidates.length > 0}

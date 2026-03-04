@@ -32,7 +32,7 @@ const AppContent = () => {
   const isTestPage = location.pathname.startsWith('/test/');
   const isTestSubmittedPage = location.pathname.startsWith('/test-submitted');
   const showSidebar = !isLandingPage && !isLoginPage && !isTestPage && !isTestSubmittedPage;
-  const showDarkModeToggle = !isTestPage && !isTestSubmittedPage;
+  const showDarkModeToggle = !isLandingPage && !isLoginPage && !isTestPage && !isTestSubmittedPage;
 
   return (
     <div className={`flex min-h-screen transition-colors duration-500 ${isDark ? 'bg-slate-950' : 'bg-white'}`}>

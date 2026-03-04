@@ -68,7 +68,7 @@ const NewHiring = () => {
           <img 
             src={LOGO_URL}
             alt="LegionX" 
-            className="h-14 w-auto cursor-pointer hover:scale-105 transition-transform"
+            className="h-16 w-auto cursor-pointer hover:scale-105 transition-transform"
             onClick={() => navigate('/home')}
           />
         </div>
