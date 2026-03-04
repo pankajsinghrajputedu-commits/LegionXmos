@@ -8,7 +8,7 @@ const DarkModeToggle = () => {
   return (
     <button
       onClick={toggleTheme}
-      className="fixed bottom-6 left-20 z-50 p-4 rounded-full shadow-2xl transition-all duration-500 transform hover:scale-110 active:scale-95"
+      className="fixed bottom-24 right-6 z-50 p-4 rounded-full shadow-2xl transition-all duration-500 transform hover:scale-110 active:scale-95"
       style={{
         background: isDark 
           ? 'linear-gradient(135deg, #1e3a5f 0%, #0f172a 100%)' 
