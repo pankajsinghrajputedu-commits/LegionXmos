@@ -8,41 +8,39 @@ const DarkModeToggle = () => {
   return (
     <button
       onClick={toggleTheme}
-      className="fixed bottom-24 right-6 z-50 p-4 rounded-full shadow-2xl transition-all duration-500 transform hover:scale-110 active:scale-95"
+      className="fixed top-5 right-5 z-[55] p-3 rounded-xl shadow-xl transition-all duration-500 transform hover:scale-105 active:scale-95 border"
       style={{
         background: isDark 
-          ? 'linear-gradient(135deg, #1e3a5f 0%, #0f172a 100%)' 
-          : 'linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%)',
+          ? 'linear-gradient(135deg, #1e293b 0%, #0f172a 100%)' 
+          : 'linear-gradient(135deg, #fef3c7 0%, #fbbf24 100%)',
+        borderColor: isDark ? '#334155' : '#fcd34d',
         boxShadow: isDark 
-          ? '0 10px 40px rgba(30, 58, 95, 0.5)' 
-          : '0 10px 40px rgba(251, 191, 36, 0.5)'
+          ? '0 8px 32px rgba(15, 23, 42, 0.5)' 
+          : '0 8px 32px rgba(251, 191, 36, 0.4)'
       }}
       data-testid="dark-mode-toggle"
       aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
     >
-      <div className="relative w-6 h-6">
-        {/* Sun icon */}
+      <div className="relative w-5 h-5">
         <Sun 
-          size={24} 
-          className={`absolute inset-0 text-white transition-all duration-500 ${
-            isDark ? 'opacity-0 rotate-90 scale-0' : 'opacity-100 rotate-0 scale-100'
+          size={20} 
+          className={`absolute inset-0 transition-all duration-500 ${
+            isDark ? 'opacity-0 rotate-90 scale-0' : 'opacity-100 rotate-0 scale-100 text-amber-700'
           }`}
         />
-        {/* Moon icon */}
         <Moon 
-          size={24} 
-          className={`absolute inset-0 text-white transition-all duration-500 ${
-            isDark ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 -rotate-90 scale-0'
+          size={20} 
+          className={`absolute inset-0 transition-all duration-500 ${
+            isDark ? 'opacity-100 rotate-0 scale-100 text-blue-300' : 'opacity-0 -rotate-90 scale-0'
           }`}
         />
       </div>
       
-      {/* Ripple effect on click */}
       {isTransitioning && (
         <span 
-          className="absolute inset-0 rounded-full animate-ping"
+          className="absolute inset-0 rounded-xl animate-ping"
           style={{
-            background: isDark ? 'rgba(255,255,255,0.3)' : 'rgba(0,0,0,0.2)'
+            background: isDark ? 'rgba(59, 130, 246, 0.3)' : 'rgba(251, 191, 36, 0.4)'
           }}
         />
       )}

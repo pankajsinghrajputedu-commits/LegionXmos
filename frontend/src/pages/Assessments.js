@@ -3,6 +3,7 @@ import { useSearchParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Sparkles, Link as LinkIcon, Copy, Check, Loader2, Edit3, Trash2, Plus, Save, X, Users, Mail, ArrowLeft } from 'lucide-react';
 import { toast } from 'sonner';
+import { useTheme } from '@/context/ThemeContext';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
@@ -22,6 +23,7 @@ const Assessments = () => {
   const [saving, setSaving] = useState(false);
   const [activeTab, setActiveTab] = useState('questions');
   const navigate = useNavigate();
+  const { isDark } = useTheme();
 
   // Candidate management state
   const [candidates, setCandidates] = useState([]);

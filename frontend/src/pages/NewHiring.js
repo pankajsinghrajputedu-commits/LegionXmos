@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Briefcase, Loader2, ArrowLeft } from 'lucide-react';
 import { toast } from 'sonner';
+import { useTheme } from '@/context/ThemeContext';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
@@ -10,6 +11,7 @@ const LOGO_URL = "https://customer-assets.emergentagent.com/job_quick-unzip-5/ar
 
 const NewHiring = () => {
   const navigate = useNavigate();
+  const { isDark } = useTheme();
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [loading, setLoading] = useState(false);
@@ -53,12 +55,12 @@ const NewHiring = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 p-4 lg:p-8">
+    <div className={`min-h-screen transition-colors duration-500 p-4 lg:p-8 ${isDark ? 'bg-slate-950' : 'bg-gray-50'}`}>
       <div className="max-w-2xl mx-auto space-y-6">
         <div className="flex items-center justify-between">
           <button
             onClick={() => navigate('/hirings')}
-            className="flex items-center gap-2 text-gray-600 hover:text-gray-900"
+            className={`flex items-center gap-2 ${isDark ? 'text-slate-400 hover:text-white' : 'text-gray-600 hover:text-gray-900'}`}
           >
             <ArrowLeft size={20} />
             Back to Hirings
@@ -66,23 +68,23 @@ const NewHiring = () => {
           <img 
             src={LOGO_URL}
             alt="LegionX" 
-            className="h-12 w-auto cursor-pointer hover:scale-105 transition-transform"
-            onClick={() => window.location.reload()}
+            className="h-14 w-auto cursor-pointer hover:scale-105 transition-transform"
+            onClick={() => navigate('/home')}
           />
         </div>
 
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8">
+        <div className={`rounded-xl shadow-sm border p-8 transition-colors duration-500 ${isDark ? 'bg-slate-900 border-slate-800' : 'bg-white border-gray-200'}`}>
           <div className="text-center mb-8">
             <div className="w-16 h-16 bg-red-800 rounded-xl flex items-center justify-center mx-auto mb-4">
               <Briefcase className="text-white" size={32} />
             </div>
-            <h1 className="text-2xl font-bold text-gray-900">Start New Hiring</h1>
-            <p className="text-gray-600 mt-2">Create a hiring session to begin your recruitment process</p>
+            <h1 className={`text-2xl font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>Start New Hiring</h1>
+            <p className={`mt-2 ${isDark ? 'text-slate-400' : 'text-gray-600'}`}>Create a hiring session to begin your recruitment process</p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
-              <label className="text-sm font-semibold text-gray-900">
+              <label className={`text-sm font-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}>
                 Hiring Name <span className="text-red-600">*</span>
               </label>
               <input
@@ -90,21 +92,25 @@ const NewHiring = () => {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="e.g., Senior Software Engineer - Q1 2026"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none text-gray-900"
+                className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-colors ${
+                  isDark ? 'bg-slate-800 border-slate-700 text-white placeholder:text-slate-500' : 'border-gray-300 text-gray-900'
+                }`}
                 data-testid="hiring-name-input"
                 required
               />
-              <p className="text-xs text-gray-500">Give your hiring session a descriptive name</p>
+              <p className={`text-xs ${isDark ? 'text-slate-500' : 'text-gray-500'}`}>Give your hiring session a descriptive name</p>
             </div>
 
             <div className="space-y-2">
-              <label className="text-sm font-semibold text-gray-900">Description</label>
+              <label className={`text-sm font-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}>Description</label>
               <textarea
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 placeholder="Optional: Add details about this hiring..."
                 rows={3}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none text-gray-900 resize-none"
+                className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none resize-none transition-colors ${
+                  isDark ? 'bg-slate-800 border-slate-700 text-white placeholder:text-slate-500' : 'border-gray-300 text-gray-900'
+                }`}
                 data-testid="hiring-description-input"
               />
             </div>
