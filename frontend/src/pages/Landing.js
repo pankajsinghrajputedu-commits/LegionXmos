@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Users, TrendingUp, Sparkles, Zap, Brain, ClipboardCheck, UserCheck, MessageSquare, ShieldCheck } from 'lucide-react';
+import { Users, TrendingUp, Sparkles, Zap, Brain } from 'lucide-react';
 
 const LOGO_URL = "https://customer-assets.emergentagent.com/job_quick-unzip-5/artifacts/dfj90ofz_Red_Playful_Gifts_Logo__1_-removebg-preview.png";
 
@@ -125,7 +125,7 @@ const Landing = () => {
           </div>
         </section>
 
-        {/* NEW SECTION 1: Smarter Features. Faster Hiring. */}
+        {/* Section 1: Smarter Features. Faster Hiring. */}
         <section className="bg-gray-100 py-24 sm:py-32">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             {/* Badge */}
@@ -151,7 +151,7 @@ const Landing = () => {
           </div>
         </section>
 
-        {/* NEW SECTION 2: AI Agents for Hiring */}
+        {/* Section 2: AI Agents for Hiring */}
         <section className="bg-gray-200 py-24 sm:py-32">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             {/* Badge */}
@@ -175,103 +175,82 @@ const Landing = () => {
               Behind every answer lies insight. Our AI specialists work together to uncover
               candidate's true potential, ensuring you hire not just faster, but smarter.
             </p>
-
-            {/* Feature Badges */}
-            <div className="flex flex-wrap items-center justify-center gap-4 mt-12">
-              <div className="inline-flex items-center gap-3 px-5 py-2.5 bg-red-800 rounded-full">
-                <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center">
-                  <UserCheck className="text-red-800" size={18} />
-                </div>
-                <span className="text-white font-semibold text-sm">AI Recruiter</span>
-              </div>
-
-              <div className="inline-flex items-center gap-3 px-5 py-2.5 bg-red-800 rounded-full">
-                <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center">
-                  <MessageSquare className="text-red-800" size={18} />
-                </div>
-                <span className="text-white font-semibold text-sm">AI Interviewer</span>
-              </div>
-
-              <div className="inline-flex items-center gap-3 px-5 py-2.5 bg-red-800 rounded-full">
-                <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center">
-                  <ShieldCheck className="text-red-800" size={18} />
-                </div>
-                <span className="text-white font-semibold text-sm">AI Verifier</span>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* How It Works Section */}
-        <section className="bg-white py-24 sm:py-32">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            {/* Badge */}
-            <div className="text-center mb-16">
-              <div className="inline-flex items-center gap-3 px-5 py-2.5 bg-red-800 rounded-full mb-8">
-                <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center">
-                  <ClipboardCheck className="text-red-800" size={18} />
-                </div>
-                <span className="text-white font-semibold text-sm">How it works</span>
-              </div>
-              <h2 className="text-4xl sm:text-5xl md:text-6xl font-serif font-bold text-gray-900">
-                Three simple steps
-              </h2>
-            </div>
-
-            {/* Steps */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-12">
-              <div className="text-center">
-                <div className="w-16 h-16 bg-red-800 text-white rounded-2xl flex items-center justify-center text-2xl font-bold mx-auto mb-6">
-                  1
-                </div>
-                <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4">Upload Job Description</h3>
-                <p className="text-gray-600 font-serif leading-relaxed">
-                  Simply paste or upload your job description. Our AI instantly understands the role requirements.
-                </p>
-              </div>
-
-              <div className="text-center">
-                <div className="w-16 h-16 bg-red-800 text-white rounded-2xl flex items-center justify-center text-2xl font-bold mx-auto mb-6">
-                  2
-                </div>
-                <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4">Generate & Send Tests</h3>
-                <p className="text-gray-600 font-serif leading-relaxed">
-                  Get 50 tailored questions in seconds. Import candidates and send test invites with one click.
-                </p>
-              </div>
-
-              <div className="text-center">
-                <div className="w-16 h-16 bg-red-800 text-white rounded-2xl flex items-center justify-center text-2xl font-bold mx-auto mb-6">
-                  3
-                </div>
-                <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4">Get AI Recommendations</h3>
-                <p className="text-gray-600 font-serif leading-relaxed">
-                  View instant scores, detailed analysis, strengths, weaknesses, and hiring recommendations.
-                </p>
-              </div>
-            </div>
-
-            {/* CTA */}
-            <div className="text-center mt-16">
-              <button
-                onClick={() => navigate('/login')}
-                className="px-10 py-5 bg-red-800 text-white rounded-xl text-lg font-bold hover:bg-red-700 transition-all shadow-xl"
-              >
-                Start Hiring Smarter →
-              </button>
-            </div>
           </div>
         </section>
 
         {/* Footer */}
-        <footer className="bg-gray-900 py-12">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <img 
-              src={LOGO_URL}
-              alt="LegionX" 
-              className="h-16 w-auto mx-auto mb-6 opacity-80"
-            />
-            <p className="text-gray-400 text-sm">© 2026 LegionX. AI-Powered Hiring Companion.</p>
+        <footer className="bg-gray-100 py-16 sm:py-20">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8">
+              {/* Logo & Tagline */}
+              <div className="md:col-span-1">
+                <img 
+                  src={LOGO_URL}
+                  alt="LegionX" 
+                  className="h-12 w-auto mb-4"
+                />
+                <p className="text-gray-600 font-serif text-sm">
+                  Hire the best talent, faster with AI
+                </p>
+              </div>
+
+              {/* Navigation Links */}
+              <div className="md:col-span-2">
+                <div className="grid grid-cols-3 gap-6">
+                  <div className="space-y-3">
+                    <a href="#" className="block text-gray-900 font-semibold hover:text-red-800 transition-colors">Features</a>
+                    <a href="#" className="block text-gray-900 font-semibold hover:text-red-800 transition-colors">Pricing</a>
+                    <a href="#" className="block text-gray-900 font-semibold hover:text-red-800 transition-colors">Demo</a>
+                  </div>
+                  <div className="space-y-3">
+                    <a href="#" className="block text-gray-900 font-semibold hover:text-red-800 transition-colors">About Us</a>
+                    <a href="#" className="block text-gray-900 font-semibold hover:text-red-800 transition-colors">Careers</a>
+                    <a href="#" className="block text-gray-900 font-semibold hover:text-red-800 transition-colors">Blog</a>
+                  </div>
+                  <div className="space-y-3">
+                    <a href="#" className="block text-gray-900 font-semibold hover:text-red-800 transition-colors">FAQ</a>
+                    <a href="#" className="block text-gray-900 font-semibold hover:text-red-800 transition-colors">Contact Us</a>
+                  </div>
+                </div>
+              </div>
+
+              {/* Social Links */}
+              <div className="md:col-span-1">
+                <p className="text-gray-900 font-semibold mb-4">Follow Our Socials:</p>
+                <div className="flex items-center gap-4">
+                  {/* X (Twitter) */}
+                  <a href="#" className="w-10 h-10 bg-gray-900 rounded-lg flex items-center justify-center hover:bg-red-800 transition-colors">
+                    <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                    </svg>
+                  </a>
+                  {/* LinkedIn */}
+                  <a href="#" className="w-10 h-10 bg-gray-900 rounded-lg flex items-center justify-center hover:bg-red-800 transition-colors">
+                    <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                    </svg>
+                  </a>
+                  {/* Instagram */}
+                  <a href="#" className="w-10 h-10 bg-gray-900 rounded-lg flex items-center justify-center hover:bg-red-800 transition-colors">
+                    <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* Bottom Bar */}
+            <div className="mt-16 pt-8 border-t border-gray-300 flex flex-col sm:flex-row items-center justify-between gap-4">
+              <p className="text-gray-600 text-sm">
+                2026 LegionX. All rights reserved.
+              </p>
+              <div className="flex items-center gap-6">
+                <a href="#" className="text-gray-600 text-sm hover:text-red-800 transition-colors">Terms of Service</a>
+                <a href="#" className="text-gray-600 text-sm hover:text-red-800 transition-colors">Privacy Policy</a>
+                <a href="#" className="text-gray-600 text-sm hover:text-red-800 transition-colors">Cookie Policy</a>
+              </div>
+            </div>
           </div>
         </footer>
       </div>
