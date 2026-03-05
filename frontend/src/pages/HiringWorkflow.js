@@ -207,6 +207,11 @@ const HiringWorkflow = () => {
       return;
     }
 
+    if (!assessment || !assessment.id) {
+      toast.error('Please generate an assessment first before sending invites');
+      return;
+    }
+
     setSendingInvites(true);
     try {
       const response = await axios.post(`${API}/candidates/send-invites`, {
@@ -764,8 +769,9 @@ const HiringWorkflow = () => {
                     {selectedCandidates.length > 0 && (
                       <button
                         onClick={sendInvites}
-                        disabled={sendingInvites}
-                        className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg font-semibold hover:bg-green-700 disabled:opacity-50"
+                        disabled={sendingInvites || !assessment}
+                        className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg font-semibold hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                        title={!assessment ? 'Generate an assessment first' : `Send invites to ${selectedCandidates.length} candidates`}
                       >
                         {sendingInvites ? <Loader2 size={18} className="animate-spin" /> : <Mail size={18} />}
                         Send Invites ({selectedCandidates.length})
