@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Users, TrendingUp, Sparkles } from 'lucide-react';
+import { Users, TrendingUp, Sparkles, Zap, Brain, ClipboardCheck, UserCheck, MessageSquare, ShieldCheck } from 'lucide-react';
 
 const LOGO_URL = "https://customer-assets.emergentagent.com/job_quick-unzip-5/artifacts/dfj90ofz_Red_Playful_Gifts_Logo__1_-removebg-preview.png";
 
@@ -32,7 +32,6 @@ const Landing = () => {
         {/* Fixed Header */}
         <header className="fixed top-0 left-0 right-0 z-50 border-b border-white/10 backdrop-blur-md bg-black/50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
-            {/* Large Logo - Clickable to reload */}
             <img 
               src={LOGO_URL}
               alt="LegionX" 
@@ -65,7 +64,6 @@ const Landing = () => {
               AI-Powered Hiring Platform
             </div>
             
-            {/* Fixed "Transform Your" with scrolling white words */}
             <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight min-h-[140px] sm:min-h-[180px] md:min-h-[200px]">
               <span className="text-red-600 block mb-2 sm:mb-4">Transform Your</span>
               <div className="h-[1.2em] overflow-hidden relative">
@@ -127,10 +125,153 @@ const Landing = () => {
           </div>
         </section>
 
+        {/* NEW SECTION 1: Smarter Features. Faster Hiring. */}
+        <section className="bg-gray-100 py-24 sm:py-32">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            {/* Badge */}
+            <div className="inline-flex items-center gap-3 px-5 py-2.5 bg-red-800 rounded-full mb-12">
+              <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center">
+                <Zap className="text-red-800" size={18} />
+              </div>
+              <span className="text-white font-semibold text-sm">AI Enabler Solutions</span>
+            </div>
+
+            {/* Title */}
+            <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-bold text-gray-900 leading-tight">
+              Smarter Features. Faster
+            </h2>
+            <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-bold text-gray-900 mt-2 sm:mt-4">
+              Hiring.
+            </h2>
+
+            {/* Subtitle */}
+            <p className="text-lg sm:text-xl text-gray-600 mt-8 sm:mt-12 font-serif max-w-2xl mx-auto">
+              Candidates you need to attract, engage and hire - all in one place.
+            </p>
+          </div>
+        </section>
+
+        {/* NEW SECTION 2: AI Agents for Hiring */}
+        <section className="bg-gray-200 py-24 sm:py-32">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            {/* Badge */}
+            <div className="inline-flex items-center gap-3 px-5 py-2.5 bg-red-800 rounded-full mb-12">
+              <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center">
+                <Brain className="text-red-800" size={18} />
+              </div>
+              <span className="text-white font-semibold text-sm">What we do</span>
+            </div>
+
+            {/* Title */}
+            <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-bold text-gray-900 leading-tight">
+              AI Agents for Hiring. All the
+            </h2>
+            <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-bold text-gray-900 mt-2 sm:mt-4">
+              insights you need.
+            </h2>
+
+            {/* Description */}
+            <p className="text-lg sm:text-xl text-gray-600 mt-8 sm:mt-12 font-serif max-w-3xl mx-auto leading-relaxed">
+              Behind every answer lies insight. Our AI specialists work together to uncover
+              candidate's true potential, ensuring you hire not just faster, but smarter.
+            </p>
+
+            {/* Feature Badges */}
+            <div className="flex flex-wrap items-center justify-center gap-4 mt-12">
+              <div className="inline-flex items-center gap-3 px-5 py-2.5 bg-red-800 rounded-full">
+                <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center">
+                  <UserCheck className="text-red-800" size={18} />
+                </div>
+                <span className="text-white font-semibold text-sm">AI Recruiter</span>
+              </div>
+
+              <div className="inline-flex items-center gap-3 px-5 py-2.5 bg-red-800 rounded-full">
+                <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center">
+                  <MessageSquare className="text-red-800" size={18} />
+                </div>
+                <span className="text-white font-semibold text-sm">AI Interviewer</span>
+              </div>
+
+              <div className="inline-flex items-center gap-3 px-5 py-2.5 bg-red-800 rounded-full">
+                <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center">
+                  <ShieldCheck className="text-red-800" size={18} />
+                </div>
+                <span className="text-white font-semibold text-sm">AI Verifier</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* How It Works Section */}
+        <section className="bg-white py-24 sm:py-32">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            {/* Badge */}
+            <div className="text-center mb-16">
+              <div className="inline-flex items-center gap-3 px-5 py-2.5 bg-red-800 rounded-full mb-8">
+                <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center">
+                  <ClipboardCheck className="text-red-800" size={18} />
+                </div>
+                <span className="text-white font-semibold text-sm">How it works</span>
+              </div>
+              <h2 className="text-4xl sm:text-5xl md:text-6xl font-serif font-bold text-gray-900">
+                Three simple steps
+              </h2>
+            </div>
+
+            {/* Steps */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-12">
+              <div className="text-center">
+                <div className="w-16 h-16 bg-red-800 text-white rounded-2xl flex items-center justify-center text-2xl font-bold mx-auto mb-6">
+                  1
+                </div>
+                <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4">Upload Job Description</h3>
+                <p className="text-gray-600 font-serif leading-relaxed">
+                  Simply paste or upload your job description. Our AI instantly understands the role requirements.
+                </p>
+              </div>
+
+              <div className="text-center">
+                <div className="w-16 h-16 bg-red-800 text-white rounded-2xl flex items-center justify-center text-2xl font-bold mx-auto mb-6">
+                  2
+                </div>
+                <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4">Generate & Send Tests</h3>
+                <p className="text-gray-600 font-serif leading-relaxed">
+                  Get 50 tailored questions in seconds. Import candidates and send test invites with one click.
+                </p>
+              </div>
+
+              <div className="text-center">
+                <div className="w-16 h-16 bg-red-800 text-white rounded-2xl flex items-center justify-center text-2xl font-bold mx-auto mb-6">
+                  3
+                </div>
+                <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4">Get AI Recommendations</h3>
+                <p className="text-gray-600 font-serif leading-relaxed">
+                  View instant scores, detailed analysis, strengths, weaknesses, and hiring recommendations.
+                </p>
+              </div>
+            </div>
+
+            {/* CTA */}
+            <div className="text-center mt-16">
+              <button
+                onClick={() => navigate('/login')}
+                className="px-10 py-5 bg-red-800 text-white rounded-xl text-lg font-bold hover:bg-red-700 transition-all shadow-xl"
+              >
+                Start Hiring Smarter →
+              </button>
+            </div>
+          </div>
+        </section>
+
         {/* Footer */}
-        <footer className="border-t border-white/10 backdrop-blur-sm bg-black/30 mt-20 sm:mt-32">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center text-gray-400 text-sm">
-            <p>© 2026 LegionX. AI-Powered Hiring Companion.</p>
+        <footer className="bg-gray-900 py-12">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <img 
+              src={LOGO_URL}
+              alt="LegionX" 
+              className="h-16 w-auto mx-auto mb-6 opacity-80"
+            />
+            <p className="text-gray-400 text-sm">© 2026 LegionX. AI-Powered Hiring Companion.</p>
           </div>
         </footer>
       </div>
