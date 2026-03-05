@@ -78,10 +78,10 @@ const Landing = () => {
               </div>
             </h2>
             
-            {/* Glass Subtitle Box */}
-            <div className="max-w-3xl mx-auto px-8 py-6 rounded-3xl bg-white/5 backdrop-blur-xl border border-white/10">
-              <p className="text-xl sm:text-2xl text-gray-200 leading-relaxed">
-                End to end AI-powered recruitment solution for modern teams
+            {/* Glass Subtitle Box - Simple */}
+            <div className="max-w-2xl mx-auto px-8 py-5 rounded-3xl bg-white/5 backdrop-blur-xl border border-white/10">
+              <p className="text-xl sm:text-2xl text-gray-200">
+                Hire smarter. Hire faster.
               </p>
             </div>
             
